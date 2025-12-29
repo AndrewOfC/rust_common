@@ -27,7 +27,7 @@ pub mod find_config_file;
 pub mod descender;
 mod get_metadata;
 mod unittests;
-mod strwriter;
+pub mod strwriter;
 pub mod yaml_path;
 mod arrayparser;
 

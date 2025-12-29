@@ -23,7 +23,7 @@
 // 
 
 use std::fmt::Arguments;
-use std::io::{BufWriter, IoSlice, Write};
+use std::io::{BufWriter, IntoInnerError, IoSlice, Write};
 
 pub struct StrWriter {
     writer: BufWriter<Vec<u8>>
@@ -37,6 +37,11 @@ impl StrWriter {
     pub fn to_string(self) -> std::io::Result<String> {
         let vec = self.writer.into_inner()?;
         String::from_utf8(vec).map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))
+    }
+
+    pub fn buffer(self) -> std::io::Result<Vec<u8>> {
+        let vec = self.writer.into_inner()?;
+        Ok(vec)
     }
 }
 
